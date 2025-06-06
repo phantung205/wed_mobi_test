@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng ký tài khoản</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <style>
+      body {
+        background: linear-gradient(120deg, #3498db 0%, #8e44ad 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .register-container {
+        background: #fff;
+        max-width: 540px;
+        width: 100%;
+        margin: 40px auto;
+        padding: 36px 32px 28px 32px;
+        border-radius: 16px;
+        box-shadow: 0 8px 32px rgba(44, 62, 80, 0.13);
+        animation: fadeIn 0.7s;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .register-container h2 {
+        text-align: center;
+        margin-bottom: 28px;
+        color: #6c3483;
+        font-size: 2rem;
+        letter-spacing: 1px;
+        font-weight: 700;
+      }
+      .form-group {
+        margin-bottom: 18px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 6px;
+        color: #34495e;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+      }
+      .form-group input,
+      .form-group select {
+        width: 100%;
+        padding: 11px 12px;
+        border: 1.5px solid #dbe3ea;
+        border-radius: 7px;
+        font-size: 1rem;
+        background: #f8fafc;
+        transition: border 0.2s;
+        box-sizing: border-box;
+      }
+      .form-group input:focus,
+      .form-group select:focus {
+        border: 1.5px solid #8e44ad;
+        background: #fff;
+        outline: none;
+      }
+      .form-row {
+        display: flex;
+        gap: 12px;
+      }
+      .form-row .form-group {
+        flex: 1;
+        margin-bottom: 0;
+      }
+      .gender-group {
+        display: flex;
+        gap: 18px;
+        align-items: center;
+        margin-bottom: 18px;
+      }
+      .gender-group label {
+        margin-bottom: 0;
+        font-weight: 400;
+        color: #555;
+      }
+      .btn {
+        width: 100%;
+        padding: 13px 0;
+        background: linear-gradient(90deg, #8e44ad 0%, #3498db 100%);
+        color: #fff;
+        border: none;
+        border-radius: 7px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        margin-top: 10px;
+        box-shadow: 0 2px 8px #0001;
+        transition: background 0.2s, transform 0.15s;
+        letter-spacing: 1px;
+      }
+      .btn:hover {
+        background: linear-gradient(90deg, #6c3483 0%, #217dbb 100%);
+        transform: translateY(-2px) scale(1.02);
+      }
+      .login-link {
+        text-align: center;
+        margin-top: 18px;
+      }
+      .login-link a {
+        color: #8e44ad;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+      .login-link a:hover {
+        color: #3498db;
+        text-decoration: underline;
+      }
+      @media (max-width: 480px) {
+        .register-container {
+          padding: 18px 4vw 12px 4vw;
+          width: 98vw;
+        }
+        .register-container h2 {
+          font-size: 1.3rem;
+        }
+        .form-row {
+          flex-direction: column;
+          gap: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="register-container">
+      <h2>Đăng ký tài khoản</h2>
+      <form id="registerForm" autocomplete="off">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="reg-lastname">Họ</label>
+            <input type="text" id="reg-lastname" required />
+          </div>
+          <div class="form-group">
+            <label for="reg-firstname">Tên</label>
+            <input type="text" id="reg-firstname" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="reg-username">Tên đăng nhập</label>
+          <input type="text" id="reg-username" required />
+        </div>
+        <div class="form-group">
+          <label for="reg-email">Email (Gmail)</label>
+          <input
+            type="email"
+            id="reg-email"
+            pattern=".+@gmail\.com"
+            required
+            placeholder="example@gmail.com"
+          />
+        </div>
+        <div class="form-group">
+          <label for="reg-birthday">Ngày sinh</label>
+          <input type="date" id="reg-birthday" required />
+        </div>
+        <div class="gender-group">
+          <label>Giới tính:</label>
+          <label
+            ><input type="radio" name="reg-gender" value="Nam" required />
+            Nam</label
+          >
+          <label><input type="radio" name="reg-gender" value="Nữ" /> Nữ</label>
+          <label
+            ><input type="radio" name="reg-gender" value="Khác" /> Khác</label
+          >
+        </div>
+        <div class="form-group">
+          <label for="reg-password">Mật khẩu</label>
+          <input type="password" id="reg-password" required minlength="4" />
+        </div>
+        <div class="form-group">
+          <label for="reg-password2">Nhập lại mật khẩu</label>
+          <input type="password" id="reg-password2" required minlength="4" />
+        </div>
+        <button type="submit" class="btn">Đăng ký</button>
+      </form>
+      <div class="login-link">
+        Đã có tài khoản? <a href="login.html">Đăng nhập</a>
+      </div>
+    </div>
+    <script>
+      document.getElementById("registerForm").onsubmit = function (e) {
+        e.preventDefault();
+        const lastname = document.getElementById("reg-lastname").value.trim();
+        const firstname = document.getElementById("reg-firstname").value.trim();
+        const username = document.getElementById("reg-username").value.trim();
+        const email = document.getElementById("reg-email").value.trim();
+        const birthday = document.getElementById("reg-birthday").value;
+        const gender =
+          document.querySelector('input[name="reg-gender"]:checked')?.value ||
+          "";
+        const password = document.getElementById("reg-password").value;
+        const password2 = document.getElementById("reg-password2").value;
+
+        if (
+          !lastname ||
+          !firstname ||
+          !username ||
+          !email ||
+          !birthday ||
+          !gender ||
+          !password ||
+          !password2
+        ) {
+          alert("Vui lòng nhập đầy đủ thông tin!");
+          return;
+        }
+        if (!/^[a-zA-Z0-9_]{4,}$/.test(username)) {
+          alert(
+            "Tên đăng nhập phải từ 4 ký tự, chỉ gồm chữ, số, dấu gạch dưới!"
+          );
+          return;
+        }
+        if (
+          !/^[a-zA-ZÀ-ỹà-ỹ\s]+$/.test(lastname) ||
+          !/^[a-zA-ZÀ-ỹà-ỹ\s]+$/.test(firstname)
+        ) {
+          alert("Họ và tên chỉ được chứa chữ cái!");
+          return;
+        }
+        if (!/^[\w.+-]+@gmail\.com$/.test(email)) {
+          alert("Email phải là địa chỉ Gmail hợp lệ!");
+          return;
+        }
+        if (password.length < 4) {
+          alert("Mật khẩu phải từ 4 ký tự trở lên!");
+          return;
+        }
+        if (password !== password2) {
+          alert("Mật khẩu nhập lại không khớp!");
+          return;
+        }
+        let users = JSON.parse(localStorage.getItem("users") || "[]");
+        if (users.find((u) => u.username === username)) {
+          alert("Tên đăng nhập đã tồn tại!");
+          return;
+        }
+        if (users.find((u) => u.email === email)) {
+          alert("Email đã được sử dụng!");
+          return;
+        }
+        users.push({
+          lastname,
+          firstname,
+          username,
+          email,
+          birthday,
+          gender,
+          password,
+        });
+        localStorage.setItem("users", JSON.stringify(users));
+        alert("Đăng ký thành công! Vui lòng đăng nhập.");
+        window.location.href = "login.html";
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản lý tài khoản</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <style>
+      .user-container {
+        max-width: 700px;
+        margin: 40px auto;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 16px #0001;
+        padding: 32px;
+      }
+      .user-container h2 {
+        margin-bottom: 24px;
+        color: #3498db;
+        text-align: center;
+      }
+      .user-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 18px;
+        background: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px #0001;
+      }
+      .user-table th,
+      .user-table td {
+        border: none;
+        padding: 12px 10px;
+        text-align: center;
+      }
+      .user-table th {
+        background: #eaf1fb;
+        color: #2c3e50;
+        font-weight: 600;
+      }
+      .user-table tr:not(:last-child) {
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .delete-btn {
+        background: #e74c3c;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 6px 16px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 500;
+        transition: background 0.2s;
+      }
+      .delete-btn:hover {
+        background: #c0392b;
+      }
+      .back-link {
+        display: inline-block;
+        margin-bottom: 18px;
+        padding: 8px 22px;
+        background: #3498db;
+        color: #fff;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: background 0.2s;
+      }
+      .back-link:hover {
+        background: #217dbb;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="user-container">
+      <a href="admin.html" class="back-link">&larr; Về trang quản trị</a>
+      <h2>Quản lý tài khoản người dùng</h2>
+      <table class="user-table" id="userTable">
+        <thead>
+          <tr>
+            <th>Tên đăng nhập</th>
+            <th>Quyền</th>
+            <th>Hành động</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Tài khoản sẽ được render ở đây -->
+        </tbody>
+      </table>
+    </div>
+    <script>
+      function renderUsers() {
+        let users = JSON.parse(localStorage.getItem("users") || "[]");
+        const tbody = document.querySelector("#userTable tbody");
+        tbody.innerHTML = "";
+        users.forEach((u, i) => {
+          tbody.innerHTML += `
+            <tr>
+              <td>${u.username}</td>
+              <td>${u.role === "admin" ? "Admin" : "User"}</td>
+              <td>
+                ${
+                  u.role === "admin"
+                    ? `<button class="delete-btn" onclick="toggleRole(${i},'user')">Bỏ quyền admin</button>`
+                    : `<button class="manage-link" style="padding:6px 16px;font-size:1rem;" onclick="toggleRole(${i},'admin')">Cấp quyền admin</button>`
+                }
+                <button class="delete-btn" onclick="deleteUser(${i})">Xóa</button>
+              </td>
+            </tr>
+          `;
+        });
+      }
+      function toggleRole(i, newRole) {
+        let users = JSON.parse(localStorage.getItem("users") || "[]");
+        users[i].role = newRole;
+        localStorage.setItem("users", JSON.stringify(users));
+        renderUsers();
+      }
+      function deleteUser(i) {
+        if (confirm("Bạn chắc chắn muốn xóa tài khoản này?")) {
+          let users = JSON.parse(localStorage.getItem("users") || "[]");
+          users.splice(i, 1);
+          localStorage.setItem("users", JSON.stringify(users));
+          renderUsers();
+        }
+      }
+      renderUsers();
+      window.deleteUser = deleteUser;
+      window.toggleRole = toggleRole;
+    </script>
+  </body>
+</html>

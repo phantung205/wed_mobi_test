@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chi tiết sản phẩm - TechPhone</title>
+    <link rel="stylesheet" href="assets/css/style-detail.css" />
+    <link rel="stylesheet" href="assets/css/detail.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      .btn.add-to-cart-btn {
+        background: #e74c3c;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        padding: 10px 28px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .btn.add-to-cart-btn:hover {
+        background: #c0392b;
+      }
+      .icons {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+      }
+      .cart-icon {
+        position: relative;
+        font-size: 1.3rem;
+        color: #3498db;
+        cursor: pointer;
+        margin-left: 18px;
+      }
+      .cart-count {
+        background: #e74c3c;
+        color: #fff;
+        border-radius: 50%;
+        padding: 2px 7px;
+        font-size: 0.8rem;
+        position: absolute;
+        left: 18px;
+        top: -10px;
+      }
+      /* CSS cho giỏ hàng popup */
+      .cart-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.3);
+        z-index: 9999;
+        display: none;
+        align-items: center;
+        justify-content: center;
+      }
+      .cart-popup {
+        background: #fff;
+        border-radius: 10px;
+        width: 350px;
+        max-width: 95vw;
+        box-shadow: 0 8px 32px #0002;
+        padding: 24px 18px 18px 18px;
+        position: relative;
+        animation: fadeIn 0.2s;
+      }
+      @keyframes fadeIn {
+        from {
+          transform: scale(0.95);
+        }
+        to {
+          transform: scale(1);
+        }
+      }
+      .cart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+      .close-cart-btn {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: #e74c3c;
+        cursor: pointer;
+      }
+      .cart-items {
+        max-height: 220px;
+        overflow-y: auto;
+        margin-bottom: 16px;
+      }
+      .cart-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border-bottom: 1px solid #eee;
+        padding: 8px 0;
+      }
+      .cart-item-img {
+        width: 48px;
+        height: 48px;
+        object-fit: cover;
+        border-radius: 6px;
+        border: 1px solid #eee;
+      }
+      .cart-item-info {
+        flex: 1;
+      }
+      .cart-item-name {
+        font-weight: 500;
+        font-size: 1rem;
+      }
+      .cart-item-price {
+        color: #3498db;
+        font-size: 0.95rem;
+      }
+      .cart-item-quantity {
+        font-size: 0.95rem;
+        margin-left: 6px;
+      }
+      .remove-item-btn {
+        background: #e74c3c;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        padding: 2px 8px;
+        cursor: pointer;
+        font-size: 0.95rem;
+        margin-left: 8px;
+      }
+      .cart-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .cart-total {
+        font-weight: 600;
+        color: #2c3e50;
+      }
+      .checkout-btn {
+        background: #3498db;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        padding: 8px 18px;
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      .checkout-btn:hover {
+        background: #217dbb;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container header-container">
+        <div class="logo">Tech<span>Phone</span></div>
+        <nav>
+          <ul>
+            <li><a href="index.html">Trang chủ</a></li>
+            <li><a href="#contact">Liên hệ</a></li>
+          </ul>
+        </nav>
+        <div class="icons">
+          <div class="cart-icon" id="cart-icon">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count" id="cartCount">0</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="product-detail">
+      <div class="container">
+        <div class="product-detail-container">
+          <div class="product-detail-image">
+            <img
+              id="productImage"
+              src="/api/placeholder/400/400"
+              alt="Tên sản phẩm"
+            />
+          </div>
+          <div class="product-detail-info">
+            <h1 id="productName">Tên sản phẩm</h1>
+            <p id="productCategory">Danh mục: iPhone</p>
+            <div class="product-rating">
+              <span id="productRating">★★★★☆ (120 đánh giá)</span>
+            </div>
+            <div class="product-price">
+              <span id="productPrice">28.990.000đ</span>
+              <span id="productOldPrice" class="old-price">33.990.000đ</span>
+            </div>
+            <p id="productDescription">
+              Đây là mô tả chi tiết về sản phẩm, bao gồm tính năng nổi bật, cấu
+              hình, camera, pin, và nhiều thông tin hấp dẫn khác.
+            </p>
+            <button class="btn add-to-cart-btn" id="addToCartBtn">
+              <i class="fas fa-cart-plus"></i> Thêm vào giỏ hàng
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Giỏ hàng popup -->
+    <div class="cart-overlay" id="cartOverlay">
+      <div class="cart" id="cartPopup">
+        <div class="cart-header">
+          <h2>Giỏ hàng của bạn</h2>
+          <span class="close-cart" id="closeCart"
+            ><i class="fas fa-times"></i
+          ></span>
+        </div>
+        <div class="cart-items" id="cartItems"></div>
+        <div class="cart-footer">
+          <div class="cart-total">
+            <h3>
+              Tổng cộng: <span class="total-amount" id="cartTotal">0đ</span>
+            </h3>
+          </div>
+          <button class="checkout-btn" id="checkoutBtn">Thanh toán</button>
+          <button class="clear-cart-btn" id="clearCartBtn">Xóa giỏ hàng</button>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="container">
+        <p>&copy; 2025 TechPhone. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="js/detail.js"></script>
+  </body>
+</html>
