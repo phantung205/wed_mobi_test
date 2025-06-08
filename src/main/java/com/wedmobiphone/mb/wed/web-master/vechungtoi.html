@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Về chúng tôi</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      :root {
+        --primary-color: #3498db;
+        --secondary-color: #2c3e50;
+        --accent-color: #e74c3c;
+        --text-color: #333;
+        --light-color: #f9f9f9;
+        --dark-color: #222;
+        --gray-color: #888;
+        --light-gray: #ddd;
+        --green-color: #27ae60;
+        --transition: all 0.3s ease;
+      }
+
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      body {
+        color: var(--text-color);
+        background-color: #f5f5f5;
+        line-height: 1.6;
+      }
+
+      header {
+        background-color: var(--secondary-color);
+        color: white;
+        padding: 1rem 0;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: white;
+      }
+
+      .logo span {
+        color: var(--primary-color);
+      }
+
+      nav ul {
+        display: flex;
+        list-style: none;
+      }
+
+      nav ul li {
+        margin-left: 1.5rem;
+      }
+
+      nav ul li a {
+        color: white;
+        text-decoration: none;
+        transition: color 0.3s;
+        position: relative;
+        padding: 8px 0;
+      }
+
+      nav ul li a:hover,
+      nav ul li a.active {
+        color: var(--primary-color);
+      }
+
+      nav ul li a.active::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: var(--primary-color);
+      }
+
+      .icons {
+        display: flex;
+        align-items: center;
+        overflow: visible;
+        /* Đảm bảo gợi ý không bị cắt */
+      }
+
+      .icons div {
+        margin-left: 1.2rem;
+        cursor: pointer;
+        position: relative;
+        font-size: 1.2rem;
+        transition: color 0.3s;
+      }
+
+      .icons div:hover {
+        color: var(--primary-color);
+      }
+
+      .cart-count {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background-color: var(--accent-color);
+        color: white;
+        border-radius: 50%;
+        width: 18px;
+        height: 18px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 0.75rem;
+      }
+
+      .hamburger {
+        display: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+
+      /* Search Box */
+      .search-box {
+        position: relative;
+        display: inline-block;
+        /* Đổi từ inline-flex sang inline-block */
+        min-width: 220px;
+        background: #fff;
+        border-radius: 20px;
+        padding: 2px 10px 2px 16px;
+        margin-right: 18px;
+        box-shadow: 0 2px 8px #0001;
+        vertical-align: middle;
+        z-index: 10;
+      }
+
+      .search-box input {
+        border: none;
+        outline: none;
+        background: transparent;
+        font-size: 1rem;
+        padding: 6px 0;
+        width: 160px;
+        color: #222;
+      }
+
+      .search-box button {
+        background: none;
+        border: none;
+        color: var(--primary-color);
+        font-size: 1.1rem;
+        cursor: pointer;
+        margin-left: 6px;
+      }
+
+      div#searchSuggestions {
+        position: absolute;
+        margin-left: auto;
+      }
+
+      .search-suggestions {
+        position: absolute;
+        top: 110%;
+        left: 0;
+        width: 100%;
+        background: #fff;
+        border-radius: 0 0 10px 10px;
+        box-shadow: 0 8px 24px #0002;
+        z-index: 9999;
+        max-height: 260px;
+        overflow-y: auto;
+        display: none;
+        padding: 0;
+      }
+
+      .search-suggestions.active {
+        display: block;
+      }
+
+      .search-suggestions .suggestion-item {
+        padding: 10px 18px;
+        cursor: pointer;
+        color: #222;
+        border-bottom: 1px solid #f0f0f0;
+        transition: background 0.2s;
+        background: #fff;
+        font-size: 1rem;
+      }
+
+      .search-suggestions .suggestion-item:last-child {
+        border-bottom: none;
+      }
+
+      .search-suggestions .suggestion-item:hover,
+      .search-suggestions .suggestion-item.active {
+        background: #f1f6fa;
+        color: var(--primary-color);
+      }
+
+      @media (max-width: 768px) {
+        .search-box input {
+          width: 90px;
+        }
+      }
+
+      /* main */
+      .main-layout {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        gap: 2rem;
+        padding: 2rem;
+        min-height: calc(100vh - 200px);
+      }
+
+      /* sidebar */
+      .sidebar {
+        flex: 1;
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        height: fit-content;
+        position: sticky;
+        top: 120px;
+      }
+
+      .sidebar h3 {
+        color: #0077cc;
+        margin-bottom: 1.5rem;
+        font-size: 1.3rem;
+        border-bottom: 2px solid #00aaff;
+        padding-bottom: 0.5rem;
+      }
+
+      .sidebar ul {
+        list-style: none;
+      }
+
+      .sidebar li {
+        margin-bottom: 0.5rem;
+      }
+
+      .sidebar a {
+        display: block;
+        padding: 0.8rem 1rem;
+        color: #333;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: all 0.3s;
+        border-left: 4px solid transparent;
+      }
+
+      .sidebar a:hover {
+        background-color: #f0f8ff;
+        color: #0077cc;
+        border-left-color: #00aaff;
+        transform: translateX(5px);
+      }
+
+      .sidebar a.active {
+        background-color: #e6f3ff;
+        color: #0077cc;
+        border-left-color: #0077cc;
+        font-weight: 600;
+      }
+
+      .content {
+        flex: 2;
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        line-height: 1.7;
+        color: #333;
+      }
+
+      .content h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        color: #0077cc;
+        border-left: 6px solid #00aaff;
+        padding-left: 15px;
+      }
+
+      .content h2 {
+        font-size: 1.5rem;
+        color: #0077cc;
+        margin: 2rem 0 1rem 0;
+        position: relative;
+      }
+
+      .content h2::before {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 50px;
+        height: 3px;
+        background-color: #00aaff;
+      }
+
+      .content ul {
+        padding-left: 20px;
+        list-style-type: disc;
+        margin: 1rem 0;
+      }
+
+      .content ul li {
+        margin-bottom: 10px;
+      }
+
+      .content a {
+        color: #0077cc;
+        text-decoration: none;
+      }
+
+      .content a:hover {
+        text-decoration: underline;
+      }
+
+      .content p {
+        margin-bottom: 1rem;
+      }
+
+      .content-section {
+        margin-bottom: 2rem;
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--secondary-color);
+        color: white;
+        padding: 4rem 0 0;
+      }
+
+      .footer-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .footer-item h3 {
+        color: white;
+        margin-bottom: 1.5rem;
+        position: relative;
+        display: inline-block;
+      }
+
+      .footer-item h3::after {
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 40px;
+        height: 3px;
+        background-color: var(--primary-color);
+      }
+
+      .footer-item p {
+        color: #bdc3c7;
+        line-height: 1.7;
+        margin-bottom: 1.5rem;
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .social-icons a {
+        width: 40px;
+        height: 40px;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        transition: var(--transition);
+      }
+
+      .social-icons a:hover {
+        background-color: var(--primary-color);
+        transform: translateY(-3px);
+      }
+
+      .footer-item ul {
+        list-style: none;
+      }
+
+      .footer-item ul li {
+        margin-bottom: 10px;
+      }
+
+      .footer-item ul li a {
+        color: #bdc3c7;
+        text-decoration: none;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+      }
+
+      .footer-item ul li a:hover {
+        color: var(--primary-color);
+        transform: translateX(5px);
+      }
+
+      .footer-item ul li a::before {
+        content: "\f105";
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        margin-right: 10px;
+        color: var(--primary-color);
+      }
+
+      .payment-methods {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .payment-methods img {
+        max-height: 30px;
+        border-radius: 5px;
+      }
+
+      .copyright {
+        text-align: center;
+        padding: 1.5rem 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: #bdc3c7;
+      }
+
+      #back-to-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background-color: #0077cc;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        display: none;
+        transition: background-color 0.3s;
+        z-index: 1000;
+      }
+
+      #back-to-top:hover {
+        background-color: #005599;
+      }
+
+      @media screen and (max-width: 768px) {
+        .header-container {
+          padding: 1rem;
+        }
+
+        nav {
+          display: none;
+        }
+
+        .hamburger {
+          display: block;
+        }
+
+        .search-box input {
+          width: 200px;
+        }
+
+        .main-layout {
+          flex-direction: column;
+          padding: 1rem;
+        }
+
+        .sidebar {
+          position: static;
+        }
+
+        .content h1 {
+          font-size: 2rem;
+        }
+
+        .content h2 {
+          font-size: 1.3rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container header-container">
+        <div class="logo">J97<span>Shop</span></div>
+        <nav>
+          <ul>
+            <li><a href="../index.html" class="active">Trang chủ</a></li>
+            <li><a href="../index.html#products">Sản phẩm</a></li>
+            <li><a href="../index.html#featured">Nổi bật</a></li>
+            <li><a href="../index.html#contact">Liên hệ</a></li>
+          </ul>
+        </nav>
+        <div class="icons">
+          <div class="search-box">
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Tìm kiếm sản phẩm..."
+              autocomplete="off"
+            />
+            <button id="searchBtn"><i class="fas fa-search"></i></button>
+            <div id="searchSuggestions" class="search-suggestions"></div>
+          </div>
+          <div class="user-icon">
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="cart-icon" id="cart-icon">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count" id="cartCount">0</span>
+          </div>
+        </div>
+        <div class="hamburger">
+          <i class="fas fa-bars"></i>
+        </div>
+      </div>
+    </header>
+
+    <div class="main-layout">
+      <aside class="sidebar">
+        <h3>Thông tin & Chính sách</h3>
+        <ul>
+          <li>
+            <a href="vechungtoi.html" class="sidebar-link active"
+              >Về chúng tôi</a
+            >
+          </li>
+          <li>
+            <a href="chinhsachbaomat.html" class="sidebar-link"
+              >Chính sách bảo mật</a
+            >
+          </li>
+          <li>
+            <a href="dieukhoandichvu.html" class="sidebar-link"
+              >Điều khoản dịch vụ</a
+            >
+          </li>
+          <li>
+            <a href="chinhsachdoitra.html" class="sidebar-link"
+              >Chính sách đổi trả</a
+            >
+          </li>
+          <li><a href="faq.html" class="sidebar-link">FAQ</a></li>
+        </ul>
+      </aside>
+
+      <main class="content">
+        <div class="content-section">
+          <h1>Giới thiệu về J97Shop</h1>
+        </div>
+
+        <div class="content-section">
+          <h2>1. Về chúng tôi</h2>
+          <p>
+            J97Shop là chuỗi chuyên bán lẻ các sản phẩm kỹ thuật số di động bao
+            gồm điện thoại di động, máy tính bảng, laptop, phụ kiện và dịch vụ
+            công nghệ… cùng các mặt hàng gia dụng, điện máy chính hãng, chất
+            lượng cao đến từ các thương hiệu lớn, với mẫu mã đa dạng và mức giá
+            tối ưu nhất cho khách hàng.
+          </p>
+          <p>
+            J97Shop là hệ thống bán lẻ đầu tiên ở Việt Nam được cấp chứng chỉ
+            ISO 9001:2000 về quản lý chất lượng theo tiêu chuẩn quốc tế. Hiện
+            nay, J97Shop là chuỗi bán lẻ lớn thứ 2 trên thị trường bán lẻ hàng
+            công nghệ.
+          </p>
+        </div>
+
+        <div class="content-section">
+          <h2>2. Sứ mệnh</h2>
+          <p>
+            Hệ thống J97Shop kỳ vọng mang đến cho khách hàng những trải nghiệm
+            mua sắm tốt nhất thông qua việc cung cấp các sản phẩm chính hãng,
+            dịch vụ chuyên nghiệp cùng chính sách hậu mãi chu đáo. J97Shop không
+            ngừng cải tiến và phát triển, hướng tới việc trở thành nhà bán lẻ
+            công nghệ hàng đầu Việt Nam, đồng thời mang lại giá trị thiết thực
+            cho cộng đồng.
+          </p>
+        </div>
+
+        <div class="content-section">
+          <h2>3. Giá trị cốt lõi</h2>
+          <li>
+            Chất lượng và Uy tín: J97Shop cam kết cung cấp các sản phẩm chính
+            hãng, chất lượng cao với chính sách bảo hành uy tín và dịch vụ chăm
+            sóc khách hàng chu đáo, nhằm đem đến cho khách hàng sự an tâm tuyệt
+            đối khi mua sắm các sản phẩm công nghệ, điện máy - gia dụng.
+          </li>
+          <li>
+            Khách hàng là trọng tâm: Phục vụ khách hàng luôn là ưu tiên số 1.
+            J97Shop luôn chú trọng hoàn thiện chất lượng dịch vụ, bồi dưỡng đội
+            ngũ nhân viên nhiệt tình, trung thực, chân thành, mang lại lợi ích
+            và sự hài lòng tối đa cho khách hàng.
+          </li>
+          <li>
+            Đổi mới và phát triển: J97Shop luôn cập nhật và đổi mới sản phẩm,
+            công nghệ cũng như dịch vụ để đáp ứng nhu cầu thay đổi liên tục của
+            thị trường và khách hàng.
+          </li>
+          <li>
+            Đồng hành cùng cộng đồng: J97Shop không chỉ tập trung vào phát triển
+            kinh doanh mà còn chú trọng đến các hoạt động xã hội, đóng góp tích
+            cực cho sự phát triển của cộng đồng và xã hội.
+          </li>
+        </div>
+      </main>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-container">
+          <div class="footer-item">
+            <h3 class="logo">Tech<span>Phone</span></h3>
+            <p>
+              Cửa hàng điện thoại uy tín hàng đầu Việt Nam. Chúng tôi cam kết
+              mang đến những sản phẩm chất lượng với giá cả hợp lý.
+            </p>
+            <div class="social-icons">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+          </div>
+          <div class="footer-item">
+            <h3>Thông tin</h3>
+            <ul>
+              <li><a href="#">Về chúng tôi</a></li>
+              <li><a href="#">Chính sách bảo mật</a></li>
+              <li><a href="#">Điều khoản dịch vụ</a></li>
+              <li><a href="#">Chính sách đổi trả</a></li>
+              <li><a href="#">FAQ</a></li>
+            </ul>
+          </div>
+          <div class="footer-item">
+            <h3>Tài khoản</h3>
+            <ul>
+              <li><a href="login.html">Đăng nhập</a></li>
+              <li><a href="register.html">Đăng ký</a></li>
+              <li><a href="cart.html">Giỏ hàng</a></li>
+              <li><a href="#">Theo dõi đơn hàng</a></li>
+              <li><a href="#">Yêu thích</a></li>
+            </ul>
+          </div>
+          <div class="footer-item">
+            <h3>Hỗ trợ thanh toán</h3>
+            <div class="payment-methods">
+              <img
+                src="https://cdn2.fptshop.com.vn/svg/visa_icon_44fe6e15ed.svg"
+                alt="Visa"
+              />
+              <img
+                src="https://cdn2.fptshop.com.vn/svg/mastercard_icon_c75f94f6a5.svg"
+                alt="Mastercard"
+              />
+              <img
+                src="https://cdn2.fptshop.com.vn/svg/applepay_icon_cb6806a0d0.svg"
+                alt="ApplePay"
+              />
+              <img
+                src="https://cdn2.fptshop.com.vn/svg/momo_icon_baef21b5f7.svg"
+                alt="Momo"
+              />
+              <img
+                src="https://cdn2.fptshop.com.vn/svg/zalopay_icon_26d64ea93f.svg"
+                alt="ZaloPay"
+              />
+              <img
+                src="https://cdn2.fptshop.com.vn/svg/vnpay_icon_f42045057d.svg"
+                alt="VNPay"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="copyright">
+          <p>&copy; J97Shop hân hạnh tài trợ chương trình này.</p>
+        </div>
+      </div>
+    </footer>
+
+    <button id="back-to-top" title="Về đầu trang">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+      // Back to top functionality
+      const backToTopBtn = document.getElementById("back-to-top");
+
+      window.addEventListener("scroll", () => {
+        if (window.pageYOffset > 300) {
+          backToTopBtn.style.display = "block";
+        } else {
+          backToTopBtn.style.display = "none";
+        }
+      });
+
+      backToTopBtn.addEventListener("click", () => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      });
+
+      // Sidebar navigation
+      const sidebarLinks = document.querySelectorAll(".sidebar a");
+
+      sidebarLinks.forEach((link) => {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          sidebarLinks.forEach((l) => l.classList.remove("active"));
+          link.classList.add("active");
+          const page = link.textContent;
+          console.log(`Navigating to: ${page}`);
+        });
+      });
+
+      // Search functionality
+      const searchBtn = document.getElementById("searchBtn");
+      const searchInput = document.getElementById("searchInput");
+
+      searchBtn.addEventListener("click", () => {
+        const query = searchInput.value.trim();
+        if (query) {
+          console.log(`Searching for: ${query}`);
+          // Add search functionality here
+        }
+      });
+
+      searchInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+          searchBtn.click();
+        }
+      });
+
+      // Mobile menu toggle
+      const hamburger = document.querySelector(".hamburger");
+      const nav = document.querySelector("nav");
+
+      hamburger.addEventListener("click", () => {
+        nav.style.display = nav.style.display === "block" ? "none" : "block";
+      });
+    </script>
+  </body>
+</html>

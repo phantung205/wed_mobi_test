@@ -28,7 +28,7 @@ $(document).ready(function () {
       }
       html += `
         <div class="product" data-category="${
-          p.brand ? p.brand.toLowerCase() : ""
+          p.category ? p.category.toLowerCase() : ""
         }">
           <div class="product-img">
             <img src="${imgSrc}" alt="${p.name}" />
@@ -60,6 +60,33 @@ $(document).ready(function () {
     });
     $("#products-container").html(html);
     attachProductEvents(); // Gán lại sự kiện cho các nút mới render
+
+    // --- Render 2 sản phẩm nổi bật ---
+    if (products.length >= 2) {
+      let featuredHtml = "";
+      for (let i = 0; i < 2; i++) {
+        const p = products[i];
+        const imgSrc =
+          p.img && p.img.trim() !== "" ? p.img : "images/no-image.png";
+        featuredHtml += `
+          <div class="featured-product${i === 1 ? " reverse" : ""}">
+            <div class="featured-img">
+              <img src="${imgSrc}" alt="${p.name}" />
+            </div>
+            <div class="featured-info">
+              <h3>${p.name}</h3>
+              <p>${p.description || ""}</p>
+              <div class="featured-price">${p.price?.toLocaleString(
+                "vi-VN"
+              )}đ</div>
+              <a href="#products" class="btn">Mua ngay</a>
+            </div>
+          </div>
+        `;
+      }
+      $(".featured-container").html(featuredHtml);
+    }
+    // --- end featured ---
   });
 
   function attachProductEvents() {
@@ -117,4 +144,31 @@ $(document).ready(function () {
 
     // Nếu có logic load more, cần reset lại visibleProducts ở đây nếu muốn
   }
+
+  $.get("http://localhost:8080/reviews/GetReviews", function (res) {
+    const reviews = res.data;
+    let html = "";
+    reviews.forEach(function (r) {
+      html += `
+      <div class="testimonial">
+        <div class="testimonial-rating">
+          ${'<i class="fas fa-star"></i>'.repeat(r.rating || 5)}
+        </div>
+        <p class="testimonial-text">
+          "${r.comment || ""}"
+        </p>
+        <div class="testimonial-author">
+          <img src="${
+            r.userImage || "/api/placeholder/50/50"
+          }" alt="Khách hàng" />
+          <div>
+            <h4>${r.userName || "Khách hàng"}</h4>
+            <p>Khách hàng</p>
+          </div>
+        </div>
+      </div>
+    `;
+    });
+    $(".testimonials-container").html(html);
+  });
 });

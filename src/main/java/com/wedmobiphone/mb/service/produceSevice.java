@@ -29,6 +29,7 @@ public class produceSevice implements productSeviceImp {
            dto.setDescription(pdd.getDescription());
            dto.setPrice(pdd.getPrice() != null ? pdd.getPrice().doubleValue() : null);
            dto.setImg(pdd.getImage());
+           dto.setCategory(pdd.getCategory());
            productDTOs.add(dto);
        }
 

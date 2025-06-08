@@ -5,7 +5,9 @@ public class ProduceDTO {
     private String name;
     private String description;
     private Double price;
+    private String category;
     private String img;
+    
     public Integer getId() {
         return id;
     }
@@ -35,6 +37,12 @@ public class ProduceDTO {
     }
     public void setImg(String img) {
         this.img = img;
+    }
+    public String getCategory() {
+        return category;
+    }
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     

@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chính sách đổi trả</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      :root {
+        --primary-color: #3498db;
+        --secondary-color: #2c3e50;
+        --accent-color: #e74c3c;
+        --text-color: #333;
+        --light-color: #f9f9f9;
+        --dark-color: #222;
+        --gray-color: #888;
+        --light-gray: #ddd;
+        --green-color: #27ae60;
+        --transition: all 0.3s ease;
+      }
+
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      body {
+        color: var(--text-color);
+        background-color: #f5f5f5;
+        line-height: 1.6;
+      }
+
+      header {
+        background-color: var(--secondary-color);
+        color: white;
+        padding: 1rem 0;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: white;
+      }
+
+      .logo span {
+        color: var(--primary-color);
+      }
+
+      nav ul {
+        display: flex;
+        list-style: none;
+      }
+
+      nav ul li {
+        margin-left: 1.5rem;
+      }
+
+      nav ul li a {
+        color: white;
+        text-decoration: none;
+        transition: color 0.3s;
+        position: relative;
+        padding: 8px 0;
+      }
+
+      nav ul li a:hover,
+      nav ul li a.active {
+        color: var(--primary-color);
+      }
+
+      nav ul li a.active::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: var(--primary-color);
+      }
+
+      .icons {
+        display: flex;
+        align-items: center;
+        overflow: visible;
+      }
+
+      .icons div {
+        margin-left: 1.2rem;
+        cursor: pointer;
+        position: relative;
+        font-size: 1.2rem;
+        transition: color 0.3s;
+      }
+
+      .icons div:hover {
+        color: var(--primary-color);
+      }
+
+      .cart-count {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background-color: var(--accent-color);
+        color: white;
+        border-radius: 50%;
+        width: 18px;
+        height: 18px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 0.75rem;
+      }
+
+      .hamburger {
+        display: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+
+      .search-box {
+        position: relative;
+        display: inline-block;
+        min-width: 220px;
+        background: #fff;
+        border-radius: 20px;
+        padding: 2px 10px 2px 16px;
+        margin-right: 18px;
+        box-shadow: 0 2px 8px #0001;
+        vertical-align: middle;
+        z-index: 10;
+      }
+
+      .search-box input {
+        border: none;
+        outline: none;
+        background: transparent;
+        font-size: 1rem;
+        padding: 6px 0;
+        width: 160px;
+        color: #222;
+      }
+
+      .search-box button {
+        background: none;
+        border: none;
+        color: var(--primary-color);
+        font-size: 1.1rem;
+        cursor: pointer;
+        margin-left: 6px;
+      }
+
+      div#searchSuggestions {
+        position: absolute;
+        margin-left: auto;
+      }
+
+      .search-suggestions {
+        position: absolute;
+        top: 110%;
+        left: 0;
+        width: 100%;
+        background: #fff;
+        border-radius: 0 0 10px 10px;
+        box-shadow: 0 8px 24px #0002;
+        z-index: 9999;
+        max-height: 260px;
+        overflow-y: auto;
+        display: none;
+        padding: 0;
+      }
+
+      .search-suggestions.active {
+        display: block;
+      }
+
+      .search-suggestions .suggestion-item {
+        padding: 10px 18px;
+        cursor: pointer;
+        color: #222;
+        border-bottom: 1px solid #f0f0f0;
+        transition: background 0.2s;
+        background: #fff;
+        font-size: 1rem;
+      }
+
+      .search-suggestions .suggestion-item:last-child {
+        border-bottom: none;
+      }
+
+      .search-suggestions .suggestion-item:hover,
+      .search-suggestions .suggestion-item.active {
+        background: #f1f6fa;
+        color: var(--primary-color);
+      }
+
+      @media (max-width: 768px) {
+        .search-box input {
+          width: 90px;
+        }
+      }
+
+      .main-layout {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        gap: 2rem;
+        padding: 2rem;
+        min-height: calc(100vh - 200px);
+      }
+
+      .sidebar {
+        flex: 1;
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        height: fit-content;
+        position: sticky;
+        top: 120px;
+      }
+
+      .sidebar h3 {
+        color: #0077cc;
+        margin-bottom: 1.5rem;
+        font-size: 1.3rem;
+        border-bottom: 2px solid #00aaff;
+        padding-bottom: 0.5rem;
+      }
+
+      .sidebar ul {
+        list-style: none;
+      }
+
+      .sidebar li {
+        margin-bottom: 0.5rem;
+      }
+
+      .sidebar a {
+        display: block;
+        padding: 0.8rem 1rem;
+        color: #333;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: all 0.3s;
+        border-left: 4px solid transparent;
+      }
+
+      .sidebar a:hover {
+        background-color: #f0f8ff;
+        color: #0077cc;
+        border-left-color: #00aaff;
+        transform: translateX(5px);
+      }
+
+      .sidebar a.active {
+        background-color: #e6f3ff;
+        color: #0077cc;
+        border-left-color: #0077cc;
+        font-weight: 600;
+      }
+
+      .content {
+        flex: 2;
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        line-height: 1.7;
+        color: #333;
+      }
+
+      .content h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        color: #0077cc;
+        border-left: 6px solid #00aaff;
+        padding-left: 15px;
+      }
+
+      .content h2 {
+        font-size: 1.5rem;
+        color: #0077cc;
+        margin: 2rem 0 1rem 0;
+        position: relative;
+      }
+
+      .content h2::before {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 50px;
+        height: 3px;
+        background-color: #00aaff;
+      }
+
+      .content ul {
+        padding-left: 20px;
+        list-style-type: disc;
+        margin: 1rem 0;
+      }
+
+      .content ul li {
+        margin-bottom: 10px;
+      }
+
+      .content a {
+        color: #0077cc;
+        text-decoration: none;
+      }
+
+      .content a:hover {
+        text-decoration: underline;
+      }
+
+      .content p {
+        margin-bottom: 1rem;
+      }
+
+      .content-section {
+        margin-bottom: 2rem;
+      }
+
+      .important-note {
+        background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+        border-left: 5px solid #f39c12;
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin: 1.5rem 0;
+        box-shadow: 0 2px 10px rgba(243, 156, 18, 0.1);
+      }
+
+      .important-note h3 {
+        color: #d68910;
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+      }
+
+      .highlight-box {
+        background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+        border-left: 5px solid #28a745;
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin: 1.5rem 0;
+        box-shadow: 0 2px 10px rgba(40, 167, 69, 0.1);
+      }
+
+      .highlight-box h3 {
+        color: #155724;
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+      }
+
+      .time-table {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        border: 1px solid #e9ecef;
+      }
+
+      .time-table table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+      }
+
+      .time-table th,
+      .time-table td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #dee2e6;
+      }
+
+      .time-table th {
+        background-color: #0077cc;
+        color: white;
+        font-weight: 600;
+      }
+
+      .time-table tr:hover {
+        background-color: #f1f3f4;
+      }
+
+      footer {
+        background-color: var(--secondary-color);
+        color: white;
+        padding: 4rem 0 0;
+      }
+
+      .footer-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .footer-item h3 {
+        color: white;
+        margin-bottom: 1.5rem;
+        position: relative;
+        display: inline-block;
+      }
+
+      .footer-item h3::after {
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 40px;
+        height: 3px;
+        background-color: var(--primary-color);
+      }
+
+      .footer-item p {
+        color: #bdc3c7;
+        line-height: 1.7;
+        margin-bottom: 1.5rem;
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .social-icons a {
+        width: 40px;
+        height: 40px;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        transition: var(--transition);
+      }
+
+      .social-icons a:hover {
+        background-color: var(--primary-color);
+        transform: translateY(-3px);
+      }
+
+      .footer-item ul {
+        list-style: none;
+      }
+
+      .footer-item ul li {
+        margin-bottom: 10px;
+      }
+
+      .footer-item ul li a {
+        color: #bdc3c7;
+        text-decoration: none;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+      }
+
+      .footer-item ul li a:hover {
+        color: var(--primary-color);
+        transform: translateX(5px);
+      }
+
+      .footer-item ul li a::before {
+        content: "\f105";
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        margin-right: 10px;
+        color: var(--primary-color);
+      }
+
+      .payment-methods {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .payment-methods img {
+        max-height: 30px;
+        border-radius: 5px;
+      }
+
+      .copyright {
+        text-align: center;
+        padding: 1.5rem 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: #bdc3c7;
+      }
+
+      #back-to-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background-color: #0077cc;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        display: none;
+        transition: background-color 0.3s;
+        z-index: 1000;
+      }
+
+      #back-to-top:hover {
+        background-color: #005599;
+      }
+
+      @media screen and (max-width: 768px) {
+        .header-container {
+          padding: 1rem;
+        }
+
+        nav {
+          display: none;
+        }
+
+        .hamburger {
+          display: block;
+        }
+
+        .search-box input {
+          width: 200px;
+        }
+
+        .main-layout {
+          flex-direction: column;
+          padding: 1rem;
+        }
+
+        .sidebar {
+          position: static;
+        }
+
+        .content h1 {
+          font-size: 2rem;
+        }
+
+        .content h2 {
+          font-size: 1.3rem;
+        }
+
+        .time-table {
+          overflow-x: auto;
+        }
+
+        .time-table table {
+          min-width: 500px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container header-container">
+        <div class="logo">J97<span>Shop</span></div>
+        <nav>
+          <ul>
+            <li><a href="../index.html" class="active">Trang chủ</a></li>
+            <li><a href="../index.html#products">Sản phẩm</a></li>
+            <li><a href="../index.html#featured">Nổi bật</a></li>
+            <li><a href="../index.html#contact">Liên hệ</a></li>
+          </ul>
+        </nav>
+        <div class="icons">
+          <div class="search-box">
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Tìm kiếm sản phẩm..."
+              autocomplete="off"
+            />
+            <button id="searchBtn"><i class="fas fa-search"></i></button>
+            <div id="searchSuggestions" class="search-suggestions"></div>
+          </div>
+          <div class="user-icon">
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="cart-icon" id="cart-icon">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count" id="cartCount">0</span>
+          </div>
+        </div>
+        <div class="hamburger">
+          <i class="fas fa-bars"></i>
+        </div>
+      </div>
+    </header>
+
+    <div class="main-layout">
+      <aside class="sidebar">
+        <h3>Thông tin & Chính sách</h3>
+        <ul>
+          <li>
+            <a href="vechungtoi.html">Về chúng tôi</a>
+          </li>
+          <li>
+            <a href="chinhsachbaomat.html">Chính sách bảo mật</a>
+          </li>
+          <li>
+            <a href="dieukhoandichvu.html">Điều khoản dịch vụ</a>
+          </li>
+          <li>
+            <a href="chinhsachdoitra.html" class="active">Chính sách đổi trả</a>
+          </li>
+          <li><a href="faq.html">FAQ</a></li>
+        </ul>
+      </aside>
+
+      <main class="content">
+        <div class="content-section">
+          <h1>Chính sách Đổi trả Sản phẩm</h1>
+          <p>
+            J97Shop cam kết mang đến cho khách hàng trải nghiệm mua sắm tốt nhất
+            với chính sách đổi trả linh hoạt và minh bạch. Chúng tôi luôn đặt
+            quyền lợi của khách hàng lên hàng đầu và sẵn sàng hỗ trợ trong mọi
+            tình huống.
+          </p>
+        </div>
+
+        <div class="important-note">
+          <h3><i class="fas fa-exclamation-triangle"></i> Lưu ý quan trọng</h3>
+          <p>
+            Vui lòng đọc kỹ các điều khoản đổi trả dưới đây trước khi thực hiện
+            giao dịch. Việc mua hàng đồng nghĩa với việc bạn đã đồng ý với tất
+            cả các điều khoản này.
+          </p>
+        </div>
+
+        <div class="content-section">
+          <h2>1. Điều kiện đổi trả chung</h2>
+          <ul>
+            <li>
+              <strong>Thời gian:</strong> Sản phẩm được đổi/trả trong vòng 7
+              ngày kể từ ngày nhận hàng (đối với lỗi từ nhà sản xuất) và 3 ngày
+              (đối với lỗi chủ quan).
+            </li>
+            <li>
+              <strong>Tình trạng sản phẩm:</strong> Sản phẩm phải còn nguyên
+              vẹn, chưa qua sử dụng, còn đầy đủ phụ kiện và bao bì ban đầu.
+            </li>
+            <li>
+              <strong>Hóa đơn:</strong> Bắt buộc phải có hóa đơn mua hàng hoặc
+              mã đơn hàng hợp lệ.
+            </li>
+            <li>
+              <strong>Tem bảo hành:</strong> Tem bảo hành và các nhãn mác của
+              sản phẩm phải còn nguyên vẹn, không bị rách hay tẩy xóa.
+            </li>
+          </ul>
+        </div>
+
+        <div class="time-table">
+          <h3>
+            <i class="fas fa-clock"></i> Thời gian đổi trả theo loại sản phẩm
+          </h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Loại sản phẩm</th>
+                <th>Thời gian đổi</th>
+                <th>Thời gian trả</th>
+                <th>Ghi chú</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Điện thoại di động</td>
+                <td>7 ngày</td>
+                <td>3 ngày</td>
+                <td>Kiểm tra kỹ trước khi nhận</td>
+              </tr>
+              <tr>
+                <td>Phụ kiện điện tử</td>
+                <td>5 ngày</td>
+                <td>3 ngày</td>
+                <td>Bao gồm tai nghe, sạc, ốp lưng</td>
+              </tr>
+              <tr>
+                <td>Thiết bị đã qua sử dụng</td>
+                <td>3 ngày</td>
+                <td>1 ngày</td>
+                <td>Áp dụng với sản phẩm second-hand</td>
+              </tr>
+              <tr>
+                <td>Sản phẩm khuyến mãi</td>
+                <td>3 ngày</td>
+                <td>Không áp dụng</td>
+                <td>Chỉ đổi, không trả lại tiền</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="content-section">
+          <h2>2. Các trường hợp được đổi trả</h2>
+
+          <div class="highlight-box">
+            <h3><i class="fas fa-check-circle"></i> Lỗi từ nhà sản xuất</h3>
+            <ul>
+              <li>
+                Sản phẩm bị lỗi kỹ thuật do nhà sản xuất (màn hình chết điểm,
+                lỗi phần mềm, lỗi phần cứng)
+              </li>
+              <li>Sản phẩm không hoạt động ngay từ khi mở hộp</li>
+              <li>Thiếu phụ kiện theo cam kết của nhà sản xuất</li>
+              <li>Sản phẩm bị hư hỏng trong quá trình vận chuyển</li>
+            </ul>
+          </div>
+
+          <div class="important-note">
+            <h3>
+              <i class="fas fa-user-times"></i> Lỗi chủ quan từ khách hàng
+            </h3>
+            <ul>
+              <li>Khách hàng đặt nhầm mẫu mã, màu sắc hoặc cấu hình</li>
+              <li>
+                Không hài lòng với sản phẩm sau khi sử dụng (trong thời gian quy
+                định)
+              </li>
+              <li>
+                Muốn đổi sang sản phẩm khác có giá trị tương đương hoặc cao hơn
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="content-section">
+          <h2>3. Các trường hợp KHÔNG được đổi trả</h2>
+          <ul>
+            <li>Sản phẩm đã qua thời gian quy định cho việc đổi trả</li>
+            <li>
+              Sản phẩm bị hư hỏng do tác động bên ngoài (rơi vỡ, ngập nước, cháy
+              nổ)
+            </li>
+            <li>
+              Sản phẩm bị tẩy xóa số serial, tem bảo hành hoặc các thông tin
+              nhận dạng
+            </li>
+            <li>Sản phẩm thiếu phụ kiện hoặc tài liệu đi kèm</li>
+            <li>
+              Sản phẩm thuộc danh mục không được đổi trả (sim 4G, thẻ cào,
+              pin...)
+            </li>
+            <li>Khách hàng không cung cấp được hóa đơn mua hàng</li>
+          </ul>
+        </div>
+
+        <div class="content-section">
+          <h2>4. Quy trình đổi trả</h2>
+
+          <div class="highlight-box">
+            <h3><i class="fas fa-clipboard-list"></i> Các bước thực hiện</h3>
+            <ol style="list-style-type: decimal; padding-left: 20px">
+              <li>
+                <strong>Liên hệ:</strong> Gọi hotline
+                <strong>0166668888</strong> hoặc đến trực tiếp cửa hàng để thông
+                báo về việc đổi trả
+              </li>
+              <li>
+                <strong>Chuẩn bị:</strong> Đóng gói sản phẩm cùng với đầy đủ phụ
+                kiện, hóa đơn và giấy tờ liên quan
+              </li>
+              <li>
+                <strong>Kiểm tra:</strong> Nhân viên sẽ kiểm tra tình trạng sản
+                phẩm và xác nhận điều kiện đổi trả
+              </li>
+              <li>
+                <strong>Xử lý:</strong> Thực hiện đổi sản phẩm mới hoặc hoàn
+                tiền theo yêu cầu của khách hàng
+              </li>
+              <li>
+                <strong>Hoàn tất:</strong> Cung cấp hóa đơn/biên nhận xác nhận
+                việc đổi trả đã hoàn tất
+              </li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="content-section">
+          <h2>5. Chi phí đổi trả</h2>
+          <div class="time-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Trường hợp</th>
+                  <th>Chi phí vận chuyển</th>
+                  <th>Phí xử lý</th>
+                  <th>Người chịu trách nhiệm</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Lỗi nhà sản xuất</td>
+                  <td>Miễn phí</td>
+                  <td>Miễn phí</td>
+                  <td>J97Shop</td>
+                </tr>
+                <tr>
+                  <td>Lỗi trong vận chuyển</td>
+                  <td>Miễn phí</td>
+                  <td>Miễn phí</td>
+                  <td>J97Shop</td>
+                </tr>
+                <tr>
+                  <td>Lỗi chủ quan khách hàng</td>
+                  <td>30.000 - 50.000đ</td>
+                  <td>2% giá trị sản phẩm</td>
+                  <td>Khách hàng</td>
+                </tr>
+                <tr>
+                  <td>Đổi sang sản phẩm cao hơn</td>
+                  <td>Miễn phí</td>
+                  <td>Miễn phí</td>
+                  <td>Khách hàng (trả thêm tiền)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="content-section">
+          <h2>6. Chính sách hoàn tiền</h2>
+          <ul>
+            <li>
+              <strong>Thời gian hoàn tiền:</strong> 3-7 ngày làm việc kể từ khi
+              xác nhận trả hàng
+            </li>
+            <li>
+              <strong>Hình thức hoàn tiền:</strong> Chuyển khoản ngân hàng hoặc
+              tiền mặt tại cửa hàng
+            </li>
+            <li>
+              <strong>Số tiền hoàn lại:</strong> 100% giá trị sản phẩm (trừ phí
+              xử lý nếu có)
+            </li>
+            <li>
+              <strong>Điều kiện:</strong> Sản phẩm phải đáp ứng đầy đủ các điều
+              kiện đổi trả
+            </li>
+          </ul>
+        </div>
+
+        <div class="content-section">
+          <h2>7. Bảo hành sau đổi trả</h2>
+          <ul>
+            <li>
+              Sản phẩm đổi mới được hưởng chế độ bảo hành như sản phẩm ban đầu
+            </li>
+            <li>
+              Thời gian bảo hành được tính từ ngày mua ban đầu, không tính lại
+              từ ngày đổi
+            </li>
+            <li>
+              Giữ nguyên các điều khoản bảo hành theo quy định của nhà sản xuất
+            </li>
+            <li>Cung cấp phiếu bảo hành mới với thông tin cập nhật</li>
+          </ul>
+        </div>
+
+        <div class="content-section">
+          <h2>8. Thông tin liên hệ hỗ trợ</h2>
+          <div class="highlight-box">
+            <h3><i class="fas fa-phone-alt"></i> Kênh hỗ trợ khách hàng</h3>
+            <ul>
+              <li>
+                <strong>Hotline:</strong> 0166668888 (8:00 - 22:00 hàng ngày)
+              </li>
+              <li>
+                <strong>Email:</strong
+                ><a href="mailto:j97shop@gmail.com.vn"> j97shop@gmail.com.vn</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </main>
+    </div>
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-container">
+          <div class="footer-item">
+            <h3 class="logo">Tech<span>Phone</span></h3>
+            <p>
+              Cửa hàng điện thoại uy tín hàng đầu Việt Nam. Chúng tôi cam kết
+              mang đến những sản phẩm chất lượng với giá cả hợp lý.
+            </p>
+            <div class="social-icons">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+          </div>
+          <div class="footer-item">
+            <h3>Thông tin</h3>
+            <ul>
+              <li><a href="#">Về chúng tôi</a></li>
+              <li><a href="#">Chính sách bảo mật</a></li>
+              <li><a href="#">Điều khoản dịch vụ</a></li>
+              <li><a href="#">Chính sách đổi trả</a></li>
+              <li><a href="#">FAQ</a></li>
+            </ul>
+          </div>
+          <div class="footer-item">
+            <h3>Tài khoản</h3>
+            <ul>
+              <li><a href="login.html">Đăng nhập</a></li>
+              <li><a href="register.html">Đăng ký</a></li>
+              <li><a href="cart.html">Giỏ hàng</a></li>
+              <li><a href="#">Theo dõi đơn hàng</a></li>
+              <li><a href="#">Yêu thích</a></li>
+            </ul>
+          </div>
+          <div class="footer-item">
+            <h3>Hỗ trợ thanh toán</h3>
+            <div class="payment-methods">
+              <img
+                src="https://cdn2.fptshop.com.vn/svg/visa_icon_44fe6e15ed.svg"
+                alt="Visa"
+              />
+              <img
+                src="https://cdn2.fptshop.com.vn/svg/mastercard_icon_c75f94f6a5.svg"
+                alt="Mastercard"
+              />
+              <img
+                src="https://cdn2.fptshop.com.vn/svg/applepay_icon_cb6806a0d0.svg"
+                alt="ApplePay"
+              />
+              <img
+                src="https://cdn2.fptshop.com.vn/svg/momo_icon_baef21b5f7.svg"
+                alt="Momo"
+              />
+              <img
+                src="https://cdn2.fptshop.com.vn/svg/zalopay_icon_26d64ea93f.svg"
+                alt="ZaloPay"
+              />
+              <img
+                src="https://cdn2.fptshop.com.vn/svg/vnpay_icon_f42045057d.svg"
+                alt="VNPay"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="copyright">
+          <p>&copy; J97Shop hân hạnh tài trợ chương trình này.</p>
+        </div>
+      </div>
+    </footer>
+
+    <button id="back-to-top" title="Về đầu trang">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+      // Back to top functionality
+      const backToTopBtn = document.getElementById("back-to-top");
+
+      window.addEventListener("scroll", () => {
+        if (window.pageYOffset > 300) {
+          backToTopBtn.style.display = "block";
+        } else {
+          backToTopBtn.style.display = "none";
+        }
+      });
+
+      backToTopBtn.addEventListener("click", () => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      });
+
+      // Sidebar navigation
+      const sidebarLinks = document.querySelectorAll(".sidebar a");
+
+      sidebarLinks.forEach((link) => {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          sidebarLinks.forEach((l) => l.classList.remove("active"));
+          link.classList.add("active");
+          const page = link.textContent;
+          console.log(`Navigating to: ${page}`);
+        });
+      });
+
+      // Search functionality
+      const searchBtn = document.getElementById("searchBtn");
+      const searchInput = document.getElementById("searchInput");
+
+      searchBtn.addEventListener("click", () => {
+        const query = searchInput.value.trim();
+        if (query) {
+          console.log(`Searching for: ${query}`);
+          // Add search functionality here
+        }
+      });
+
+      searchInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+          searchBtn.click();
+        }
+      });
+
+      // Mobile menu toggle
+      const hamburger = document.querySelector(".hamburger");
+      const nav = document.querySelector("nav");
+
+      hamburger.addEventListener("click", () => {
+        nav.style.display = nav.style.display === "block" ? "none" : "block";
+      });
+    </script>
+  </body>
+</html>
