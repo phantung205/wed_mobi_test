@@ -8,41 +8,128 @@
   </head>
   <body>
     <div class="admin-container">
-      <div class="admin-btn-group">
-        <!-- <a href="index.html" class="btn back-link">&larr; Về trang chính</a> -->
-        <a href="manage-users.html" class="btn manage-link"
-          >Quản lý tài khoản</a
-        >
-        <button id="logoutBtn" class="btn logout-btn" style="margin-left: 8px">
-          Đăng xuất
-        </button>
+      <div class="admin-header">
+        <h2>Quản lý sản phẩm</h2>
+        <div class="admin-btn-group">
+          <a href="manage-users.html" class="btn manage-link"
+            >Quản lý tài khoản</a
+          >
+          <button id="logoutBtn" class="btn btn-danger">Đăng xuất</button>
+        </div>
       </div>
-      <h2>Quản lý sản phẩm</h2>
+
       <form class="admin-form" id="productForm">
         <input type="hidden" id="editIndex" />
-        <input type="text" id="name" placeholder="Tên sản phẩm" required />
-        <input type="number" id="price" placeholder="Giá sản phẩm" required />
-        <input type="number" id="oldPrice" placeholder="Giá cũ (nếu có)" />
-        <input type="text" id="image" placeholder="Link ảnh" required />
-        <input type="text" id="category" placeholder="Danh mục" required />
-        <button type="submit" class="btn">Lưu sản phẩm</button>
+
+        <div class="form-group">
+          <label for="name">Tên sản phẩm <span class="required">*</span></label>
+          <input
+            type="text"
+            id="name"
+            placeholder="Nhập tên sản phẩm"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="description">Mô tả sản phẩm</label>
+          <textarea
+            id="description"
+            placeholder="Nhập mô tả chi tiết sản phẩm"
+            rows="4"
+          ></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="price">Giá bán <span class="required">*</span></label>
+            <input
+              type="number"
+              id="price"
+              placeholder="Nhập giá bán"
+              required
+              min="0"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="oldPrice">Giá cũ</label>
+            <input
+              type="number"
+              id="oldPrice"
+              placeholder="Nhập giá cũ (nếu có)"
+              min="0"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="category">Danh mục</label>
+          <select id="category">
+            <option value="">Chọn danh mục</option>
+            <option value="iPhone">iPhone</option>
+            <option value="Samsung">Samsung</option>
+            <option value="Xiaomi">Xiaomi</option>
+            <option value="Oppo">Oppo</option>
+            <option value="Vivo">Vivo</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="image">Link ảnh sản phẩm</label>
+          <input type="text" id="image" placeholder="Nhập đường dẫn ảnh" />
+        </div>
+
+        <div class="form-group">
+          <label for="discount">Giảm giá (%)</label>
+          <input
+            type="number"
+            id="discount"
+            min="0"
+            max="100"
+            placeholder="Nhập % giảm giá"
+            value="0"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="stock"
+            >Số lượng tồn kho <span class="required">*</span></label
+          >
+          <input
+            type="number"
+            id="stock"
+            min="0"
+            placeholder="Nhập số lượng"
+            required
+          />
+        </div>
+
+        <div class="form-buttons">
+          <button type="submit" class="btn btn-primary">Lưu sản phẩm</button>
+          <button type="reset" class="btn btn-secondary">Làm mới</button>
+        </div>
       </form>
-      <table class="product-table" id="productTable">
-        <thead>
-          <tr>
-            <th>Tên</th>
-            <th>Giá</th>
-            <th>Giá cũ</th>
-            <th>Ảnh</th>
-            <th>Danh mục</th>
-            <th>Hành động</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Sản phẩm sẽ được render ở đây -->
-        </tbody>
-      </table>
+
+      <div class="table-container">
+        <table class="product-table" id="productTable">
+          <thead>
+            <tr>
+              <th>Tên</th>
+              <th>Giá</th>
+              <th>Giá cũ</th>
+              <th>Ảnh</th>
+              <th>Danh mục</th>
+              <th>Hành động</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Sản phẩm sẽ được render ở đây -->
+          </tbody>
+        </table>
+      </div>
     </div>
+
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="js/admin.js"></script>
   </body>
